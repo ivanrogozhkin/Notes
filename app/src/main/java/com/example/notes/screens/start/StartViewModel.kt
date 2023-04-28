@@ -3,7 +3,6 @@ package com.example.notes.screens.start
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import com.example.notes.REPOSITORY
 import com.example.notes.db.NoteDatabase
 import com.example.notes.db.repository.NoteRealisation
