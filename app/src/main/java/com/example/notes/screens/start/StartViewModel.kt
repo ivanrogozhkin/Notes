@@ -10,7 +10,7 @@ import com.example.notes.model.NoteModel
 
 class StartViewModel(application: Application): AndroidViewModel(application) {
 
-    val context = application
+    private val context = application
 
     fun initDatabase() {
         val daoNote = NoteDatabase.getInstance(context).getNoteDao()

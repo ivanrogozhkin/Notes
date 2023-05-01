@@ -11,18 +11,19 @@ import com.example.notes.APP
 import com.example.notes.R
 import com.example.notes.adapter.NoteAdapter
 import com.example.notes.databinding.FragmentStartBinding
+import com.example.notes.model.NoteModel
 
 class StartFragment : Fragment() {
 
-    lateinit var binding: FragmentStartBinding
-    lateinit var recyclerView: RecyclerView
-    lateinit var adapter: NoteAdapter
+    private lateinit var binding: FragmentStartBinding
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: NoteAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentStartBinding.inflate(layoutInflater, container, false)
-        return inflater.inflate(R.layout.fragment_start, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,12 +39,19 @@ class StartFragment : Fragment() {
         adapter = NoteAdapter()
         recyclerView.adapter = adapter
         viewModel.getAllNotes().observe(viewLifecycleOwner) { listNotes ->
-            listNotes.asReversed()
-            adapter.setList(listNotes)
+            adapter.setList(listNotes.asReversed())
         }
 
         binding.btnNext.setOnClickListener {
-            APP.navController.navigate(R.id.action_startFragment_to_detailFragment)
+            APP.navController.navigate(R.id.action_startFragment_to_addNoteFragment)
+        }
+    }
+
+    companion object {
+        fun clickNote(note: NoteModel) {
+            val bundle = Bundle()
+            bundle.putSerializable("note", note)
+            APP.navController.navigate(R.id.action_startFragment_to_detailFragment, bundle)
         }
     }
 
